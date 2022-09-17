@@ -8,7 +8,7 @@ from sklearn import model_selection
 import numpy as np
 import time
 import os
-imgW, imgH = 50, 50
+imgW, imgH = 100, 100
 nClass = 11
 
 def buildModelCNN():
@@ -35,7 +35,7 @@ if __name__ == '__main__':
   if not os.path.exists(signFileName):
     print("Sign File does not exist")
     exit()
-  saveModelFile = "./RasSignModelCNN_1.h5"
+  saveModelFile = "./assets/model/RasSignModelCNN_1.h5"
   sTime = time.time()
   # フォント画像のデータを読む
   xy = np.load(signFileName)
