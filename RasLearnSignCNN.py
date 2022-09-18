@@ -9,7 +9,7 @@ import numpy as np
 import time
 import os
 imgW, imgH = 100, 100
-nClass = 11
+nClass = 86436
 
 def buildModelCNN():
   # CNNのモデルを構築
@@ -35,12 +35,15 @@ if __name__ == '__main__':
   if not os.path.exists(signFileName):
     print("Sign File does not exist")
     exit()
-  saveModelFile = "./assets/model/RasSignModelCNN_1.h5"
+  saveModelFile = "./assets/model/RasSignModelCNN_2.h5"
   sTime = time.time()
   # フォント画像のデータを読む
   xy = np.load(signFileName)
   X = xy["x"]
   Y = xy["y"]
+  X = X[:40000,:]
+  Y = Y[:40000]
+  print(Y.shape)
   # データを正規化
   X = X.reshape(X.shape[0], imgW, imgH, 3).astype('float32')
   X /= 255

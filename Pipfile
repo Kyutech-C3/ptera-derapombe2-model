@@ -7,6 +7,9 @@ name = "pypi"
 numpy = "*"
 opencv-python = "*"
 pillow = "*"
+sklearn = "*"
+matplotlib = "*"
+tensorflow-gpu = "*"
 keras = "*"
 
 [dev-packages]
