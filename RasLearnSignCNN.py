@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from timeit import repeat
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten, Activation
 from keras.layers import Conv2D, MaxPooling2D
@@ -8,6 +9,7 @@ from sklearn import model_selection
 import numpy as np
 import time
 import os
+import random
 imgW, imgH = 100, 100
 nClass = 86436
 
@@ -31,29 +33,36 @@ def buildModelCNN():
 
 if __name__ == '__main__':
   import matplotlib.pyplot as plt
-  signFileName = "./assets/dataset/RasSignImg.npz"
+  signFileName = "./assets/dataset/X100/RasSignImg_X100.npz"
   if not os.path.exists(signFileName):
     print("Sign File does not exist")
     exit()
-  saveModelFile = "./assets/model/RasSignModelCNN_2.h5"
+  saveModelFile = "./assets/model/RasSignModelCNN_3.h5"
   sTime = time.time()
   # フォント画像のデータを読む
+  # rng = np.random.default_rng()
   xy = np.load(signFileName)
+  # xy = rng.shuffle(xy,axis=0)
   X = xy["x"]
   Y = xy["y"]
-  X = X[:40000,:]
-  Y = Y[:40000]
+  print(X.shape)
+  print(Y.shape)
+  X = X[:3000,:]
+  Y = Y[:3000]   
+  print(X)
+  print(Y)
+  print(X.shape)
   print(Y.shape)
   # データを正規化
   X = X.reshape(X.shape[0], imgW, imgH, 3).astype('float32')
   X /= 255
   Y = np_utils.to_categorical(Y, nClass)
   # 訓練データとテストデータに分割
-  X_train, X_test, y_train, y_test = model_selection.train_test_split(X, Y)
+  X_train, X_test, y_train, y_test = model_selection.train_test_split(X, Y,test_size=0.25)
   # モデルを構築
   model = buildModelCNN()
   history = model.fit(X_train, y_train,
-                                  batch_size=128, epochs=5, verbose=1,
+                                  batch_size=1024, epochs=5, verbose=1,
                                   validation_data=(X_test, y_test))
   # モデルを保存
   model.save(saveModelFile)

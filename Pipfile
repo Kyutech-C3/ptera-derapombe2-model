@@ -9,8 +9,11 @@ opencv-python = "*"
 pillow = "*"
 sklearn = "*"
 matplotlib = "*"
-tensorflow-gpu = "*"
 keras = "*"
+tensorflow = "*"
+pandas = "*"
+jupyter = "*"
+jupytext = "*"
 
 [dev-packages]
 
