@@ -5,9 +5,11 @@ import glob
 from PIL import Image
 
 os.makedirs('./assets/test',exist_ok=True)
-file = files = glob.glob('./assets/test/IMG_*.jpg')
+files = glob.glob('./assets/test/IMG_\d*.jpg')
+print(files)
 
 for i, file in enumerate(files):
+  print(file)
 # 画像の読み込み(RGB)
   img = cv2.imread(file)
   print(img.shape)
