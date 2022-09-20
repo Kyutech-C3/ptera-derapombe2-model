@@ -1,0 +1,10 @@
+version: "3"
+services:
+  model_server:
+    container_name: CNN_model_server
+    hostname: model_server
+    build:
+      context: .
+      network: host
+    ports:
+      - "8501:8501"
